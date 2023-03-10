@@ -8,40 +8,40 @@ import {
   FaWhatsapp,
   FaTwitch,
 } from "react-icons/fa";
-// import ListGroup from "react-bootstrap/ListGroup";
-// import { AuthContext } from "../../../AuthProvider/AuthProvider";
-import { GoogleAuthProvider } from "firebase/auth";
+
 import BrandCarousel from "../BrandCarousel/BrandCarousel";
 
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../context/AuthProvider";
+
 const RightSideNav = () => {
-  //   const { GoogleProvider } = useContext(AuthContext);
+  const { googleSignIn } = useContext(AuthContext);
 
-  const provider = new GoogleAuthProvider();
-
-  //   const GoogleHandler = () => {
-  //     GoogleProvider(provider)
-  //       .then((result) => {
-  //         const user = result.user;
-  //         console.log(user);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   };
+  const handleGoogleSignIp = () => {
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("Successfully signed In.");
+        // navigate("/");
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className="mt-10">
       <div>
         <button
-          //   onClick={GoogleHandler}
-
-          className="flex btn btn-outline btn-primary mb-2 px-7"
+          onClick={handleGoogleSignIp}
+          className="flex justify-center items-center  btn-outline btn-primary mb-2 px-7 border-2 rounded-t-lg py-2 text-lg"
         >
-          <FaGoogle /> <p className="ml-3 text-sm">Signin with Google</p>
+          <FaGoogle /> <p className="ml-3">Signin with Google</p>
         </button>
       </div>
       <div>
-        <button className="flex btn btn-outline px-8">
+        <button className="flex justify-center items-center  btn-outline mb-2 px-[17.5px] border-2 rounded-b-lg py-2 text-lg">
           <FaGithub />
-          <p className="ml-3 text-sm">Signin with Github</p>
+          <p className="ml-3">Signin with Facebook</p>
         </button>
       </div>
 

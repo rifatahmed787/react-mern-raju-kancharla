@@ -1,14 +1,16 @@
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 
 import { Icon } from "@iconify/react";
-// import logo from "../../assets/Logo.svg";
+import logo from "../../../assets/images/a.png";
+import SearchBar from "./SearchBar";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  //   const { user, SignOut } = useContext(AuthContext);
+  const { user, SignOut } = useContext(AuthContext);
   const [theme, setTheme] = useState("light");
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,14 +27,13 @@ const Navbar = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  //   const handleLogOut = () => {
-  //     SignOut()
-  //       .then(() => {
-  //         toast.success("Successfully loged out");
-  //         navigate("/login");
-  //       })
-  //       .catch((error) => console.error(error));
-  //   };
+  const handleLogOut = () => {
+    SignOut()
+      .then(() => {
+        toast.success("Successfully loged out");
+      })
+      .catch((error) => console.error(error));
+  };
 
   const menuItems = (
     <>
@@ -88,7 +89,7 @@ const Navbar = () => {
         )}
       </li> */}
 
-      {/* {user?.uid || user?.email ? (
+      {user?.uid || user?.email ? (
         <>
           <li
             className="normal-case text-base flex items-center navber-left"
@@ -160,13 +161,13 @@ const Navbar = () => {
             </Link>
           </li>
         </>
-      )} */}
+      )}
     </>
   );
 
   return (
     <div className="bg-[#1C2B35] sticky top-0 z-50">
-      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-5">
         <div className="relative flex items-center justify-between">
           <Link
             to="/"
@@ -174,7 +175,8 @@ const Navbar = () => {
             title="Company"
             className="inline-flex items-center"
           >
-            {/* <img src={logo} alt="" /> */}
+            <img src={logo} alt="" className="w-12" />
+            <SearchBar />
           </Link>
           <ul className="flex items-center hidden space-x-8 lg:flex text-[#FFFFFF]">
             {menuItems}
@@ -228,7 +230,7 @@ const Navbar = () => {
                         title="Company"
                         className="inline-flex items-center"
                       >
-                        {/* <img src={logo} alt="" /> */}
+                        <img src={logo} alt="" className="w-10" />
                       </Link>
                     </div>
                     <div>

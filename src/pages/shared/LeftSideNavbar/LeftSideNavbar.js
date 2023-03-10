@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const LeftSideNavbar = () => {
+  const { user } = useContext(AuthContext);
   //   const [categories, setCategories] = useState([]);
 
   //   useEffect(() => {
@@ -13,8 +16,27 @@ const LeftSideNavbar = () => {
   //   }, []);
 
   return (
-    <div className="mt-5">
-      <p>hello</p>
+    <div className="mt-5 pl-16">
+      {user?.photoURL ? (
+        <div className="flex items-center">
+          {" "}
+          <img
+            src={user.photoURL}
+            alt=""
+            className="w-10 h-10 rounded-full lg:mt-2"
+          />
+          <h3 className="pl-2 text-lg font-bold">{user?.displayName}</h3>
+        </div>
+      ) : (
+        <div>
+          <Icon
+            title="user?.displayName"
+            icon="iconoir:profile-circle"
+            width="40"
+            className="lg:mt-2"
+          />
+        </div>
+      )}
       {/* <h3>All Categories: {categories.length}</h3>
       {categories.map((category) => (
         <p key={category.id}>
