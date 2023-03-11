@@ -16,7 +16,7 @@ const LeftSideNavbar = () => {
   //   }, []);
 
   return (
-    <div className="mt-5 pl-16">
+    <div className="mt-5 pl-16 ">
       {user?.photoURL ? (
         <div className="flex items-center">
           {" "}

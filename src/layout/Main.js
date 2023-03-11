@@ -9,13 +9,13 @@ const Main = () => {
     <div>
       <Navbar />
       <div className="grid grid-cols-4 gap-4">
-        <div>
+        <div className="hidden lg:block">
           <LeftSideNavbar />
         </div>
         <div className="col-span-2">
           <Outlet />
         </div>
-        <div>
+        <div className="hidden lg:block">
           <RightSideNav />
         </div>
       </div>
