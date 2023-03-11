@@ -43,34 +43,7 @@ const Navbar = () => {
         }`}
       >
         <Link title="Home" to="/">
-          Home
-        </Link>
-      </li>
-      <li
-        className={`font-semibold dark:text-white ${
-          location.pathname === "/shop" ? "text-orange-300" : ""
-        }`}
-      >
-        <Link title="Shop" to="/shop">
-          Shop
-        </Link>
-      </li>
-      <li
-        className={`font-semibold dark:text-white ${
-          location.pathname === "/cart" ? "text-orange-300" : ""
-        }`}
-      >
-        <Link title="Cart" to="/cart">
-          <Icon icon="material-symbols:shopping-cart-outline" width="20" />
-        </Link>
-      </li>
-      <li
-        className={`font-semibold dark:text-white ${
-          location.pathname === "/about" ? "text-orange-300" : ""
-        }`}
-      >
-        <Link title="About us" to="/about">
-          About us
+          <Icon icon="material-symbols:home-outline-rounded" width="35" />
         </Link>
       </li>
       {/* <li
@@ -96,7 +69,7 @@ const Navbar = () => {
             onClick={handleLogOut}
           >
             <button title="Log out" type="button">
-              Log out
+              <Icon icon="heroicons-outline:logout" width="35" />
             </button>
           </li>
           <li>
@@ -142,24 +115,40 @@ const Navbar = () => {
         </>
       ) : (
         <>
-          <li
-            className={`font-semibold dark:text-white ${
-              location.pathname === "/login" ? "text-orange-300" : ""
-            }`}
-          >
-            <Link title="Log in" to="/login">
-              Log in
-            </Link>
-          </li>
-          <li
-            className={`font-semibold dark:text-white ${
-              location.pathname === "/signup" ? "text-orange-300" : ""
-            }`}
-          >
-            <Link title="Sign up" to="/signup">
-              Sign up
-            </Link>
-          </li>
+          <div className="dropdown dropdown-end">
+            <label
+              tabIndex={0}
+              className="m-1 flex justify-center items-center"
+            >
+              <button title="Sign In" type="button">
+                <Icon icon="uil:signin" width="35" />
+              </button>
+            </label>
+
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-[#1C2B35] rounded-box w-52"
+            >
+              <li
+                className={`font-semibold dark:text-white ${
+                  location.pathname === "/signup" ? "text-orange-300" : ""
+                }`}
+              >
+                <Link title="Sign up" to="/signup">
+                  Sign up
+                </Link>
+              </li>
+              <li
+                className={`font-semibold dark:text-white ${
+                  location.pathname === "/login" ? "text-orange-300" : ""
+                }`}
+              >
+                <Link title="Log in" to="/login">
+                  Log in
+                </Link>
+              </li>
+            </ul>
+          </div>
         </>
       )}
     </>
