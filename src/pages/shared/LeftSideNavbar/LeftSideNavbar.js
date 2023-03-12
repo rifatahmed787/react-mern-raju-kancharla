@@ -17,25 +17,32 @@ const LeftSideNavbar = () => {
 
   return (
     <div className="mt-5 pl-16 fixed">
-      {user?.photoURL ? (
-        <div className="flex items-center">
-          {" "}
-          <img
-            src={user.photoURL}
-            alt=""
-            className="w-10 h-10 rounded-full lg:mt-2"
-          />
-          <h3 className="pl-2 text-lg font-bold">{user?.displayName}</h3>
-        </div>
+      {user?.uid || user?.email ? (
+        <Link to="/mytweet">
+          {user?.photoURL ? (
+            <div className="flex items-center">
+              {" "}
+              <img
+                src={user.photoURL}
+                alt=""
+                className="w-10 h-10 rounded-full lg:mt-2"
+              />
+              <h3 className="pl-2 text-lg font-bold">{user?.displayName}</h3>
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <Icon
+                title="user?.displayName"
+                icon="iconoir:profile-circle"
+                width="40"
+                className="lg:mt-2"
+              />
+              <h3 className="pl-2 text-lg font-bold">{user?.displayName}</h3>
+            </div>
+          )}
+        </Link>
       ) : (
-        <div>
-          <Icon
-            title="user?.displayName"
-            icon="iconoir:profile-circle"
-            width="40"
-            className="lg:mt-2"
-          />
-        </div>
+        ""
       )}
       {/* <h3>All Categories: {categories.length}</h3>
       {categories.map((category) => (

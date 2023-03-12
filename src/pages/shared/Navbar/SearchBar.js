@@ -11,8 +11,8 @@ const SearchBar = () => {
               <input
                 type="text"
                 id="search"
-                className="h-10 w-60 pr-8 pl-5 rounded-full z-0 focus:shadow focus:outline-none dark:bg-gray-600"
-                placeholder="What are you looking for?"
+                className="h-10 w-60 pr-8 pl-5 rounded-full z-0 focus:shadow text-gray-500 bg-gray-200 focus:outline-none dark:bg-gray-600"
+                placeholder="Search Tweet"
               />
               <button type="submit" className="absolute top-3 right-3">
                 <Icon

@@ -1,15 +1,34 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../context/AuthProvider";
+import { AuthContext } from "../../context/AuthProvider";
 import { Icon } from "@iconify/react";
+import { toast } from "react-hot-toast";
 
-const Post = ({ post }) => {
+const TweetCard = ({ tweet, refetch }) => {
   const { user } = useContext(AuthContext);
+  const { photoURL, name, caption, quantity, img, like, _id } = tweet;
 
-  const { name, photoURL, like, quantity, caption, img } = post;
+  const handleDelete = (id) => {
+    fetch(
+      `https://react-internshala-assignment-raju-server.vercel.app/posts/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged === true) {
+          toast.success("post deleted");
+          refetch();
+        }
+      });
+  };
 
   return (
     <div>
-      <div className="rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
+      <div className="rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center space-x-2">
             {user?.photoURL ? (
@@ -33,6 +52,24 @@ const Post = ({ post }) => {
                 <h3 className="pl-2 text-lg font-bold">{name}</h3>
               </div>
             )}
+          </div>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="m-1">
+              <button title="Open options" type="button">
+                <Icon icon="bi:three-dots-vertical" width="25" />
+              </button>
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <button onClick={() => handleDelete(_id)}>Delete</button>
+              </li>
+              <li>
+                <a href="/">Edit post</a>
+              </li>
+            </ul>
           </div>
         </div>
         <div>
@@ -115,4 +152,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default TweetCard;

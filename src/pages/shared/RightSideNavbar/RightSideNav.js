@@ -49,7 +49,11 @@ const RightSideNav = () => {
         <h6 className="mt-3 text-base">Find us on</h6>
         <div className="space-y-3 py-3 w-60">
           <div className="border border-black">
-            <a href="/" className="flex justify-center items-center py-2">
+            <a
+              href="https://www.facebook.com/developerrifatt"
+              target="_blank"
+              className="flex justify-center items-center py-2"
+            >
               <FaFacebook /> <p className="ml-3">Facebook</p>
             </a>
           </div>

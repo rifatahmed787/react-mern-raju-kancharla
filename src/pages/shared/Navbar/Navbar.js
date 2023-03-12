@@ -35,14 +35,22 @@ const Navbar = () => {
       .catch((error) => console.error(error));
   };
 
+  //handle homepage button click
+  const handleHomepageButtonClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const menuItems = (
     <>
       <li
         className={`font-semibold dark:text-white ${
-          location.pathname === "/" ? "text-orange-300" : ""
+          location.pathname === "/" ? "text-blue-600" : "text-black"
         }`}
       >
-        <Link title="Home" to="/">
+        <Link title="Home" to="/" onClick={handleHomepageButtonClick}>
           <Icon icon="material-symbols:home-outline-rounded" width="35" />
         </Link>
       </li>
@@ -65,7 +73,7 @@ const Navbar = () => {
       {user?.uid || user?.email ? (
         <>
           <li
-            className="normal-case text-base flex items-center navber-left"
+            className="normal-case text-base flex items-center text-black navber-left"
             onClick={handleLogOut}
           >
             <button title="Log out" type="button">
@@ -118,7 +126,7 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <label
               tabIndex={0}
-              className="m-1 flex justify-center items-center"
+              className="m-1 flex justify-center items-center text-black"
             >
               <button title="Sign In" type="button">
                 <Icon icon="uil:signin" width="35" />
@@ -155,8 +163,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-[#1C2B35] sticky top-0 z-50">
-      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-5">
+    <div className="bg-[#FFFFFF] sticky top-0 z-50">
+      <div className="px-4 py-2 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-5">
         <div className="relative flex items-center justify-between">
           <Link
             to="/"
