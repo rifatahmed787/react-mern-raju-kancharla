@@ -29,7 +29,7 @@ const RightSideNav = () => {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 fixed">
       <div>
         <button
           onClick={handleGoogleSignIp}
