@@ -42,7 +42,11 @@ const LeftSideNavbar = () => {
           )}
         </Link>
       ) : (
-        ""
+        <div>
+          <p className="text-lg font-serif font-bold">
+            Please login for a better experience.
+          </p>
+        </div>
       )}
       {/* <h3>All Categories: {categories.length}</h3>
       {categories.map((category) => (

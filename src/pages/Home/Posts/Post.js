@@ -1,18 +1,59 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
-const Post = ({ post }) => {
+const Post = ({ post, refetch }) => {
   const { user } = useContext(AuthContext);
+  const [likePost, setLikePost] = useState(false);
 
-  const { name, photoURL, like, quantity, caption, img } = post;
+  const { name, photoURL, like, caption, img, _id } = post;
+
+  //like post
+  const handleLike = (id) => {
+    const userData = {
+      userName: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    };
+    fetch(`http://localhost:5000/likepost/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        refetch();
+      });
+  };
+
+  useEffect(() => {
+    console.log("start");
+
+    const likedpost = like.find((votes) => votes.userEmail === user?.email);
+    console.log("likedpost", likedpost);
+
+    if (likedpost) {
+      setLikePost(true);
+      console.log("liked");
+      return;
+    } else {
+      setLikePost(false);
+
+      console.log("false");
+      return;
+    }
+  }, [user?.email, like]);
 
   return (
     <div>
-      <div className="rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
+      <div className=" shadow-md dark:bg-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center space-x-2">
-            {user?.photoURL ? (
+            {photoURL ? (
               <div className="flex items-center">
                 {" "}
                 <img
@@ -46,14 +87,39 @@ const Post = ({ post }) => {
         <div className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex justify-center items-center space-x-3">
-              <button
-                type="button"
-                title="Like post"
-                className="flex items-center justify-center"
-              >
-                <Icon icon="mdi:like-outline" width="25" />
-              </button>
-              <p className="text-lg">{quantity}</p>
+              {user?.uid || user?.email ? (
+                <button
+                  type="button"
+                  title="Like post"
+                  onClick={() => handleLike(_id)}
+                  className="flex items-center justify-center"
+                >
+                  <Icon
+                    icon="mdi:like-outline"
+                    width="25"
+                    className={`${likePost ? "text-blue-700" : "text-black"}`}
+                  />
+                </button>
+              ) : (
+                <div>
+                  <Link to="login">
+                    <button
+                      type="button"
+                      title="Like post"
+                      className="flex items-center justify-center"
+                    >
+                      <Icon
+                        icon="mdi:like-outline"
+                        width="25"
+                        className={`${
+                          likePost ? "text-blue-700" : "text-black"
+                        }`}
+                      />
+                    </button>
+                  </Link>
+                </div>
+              )}
+              <p className="text-lg">{like?.length}</p>
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -75,26 +141,35 @@ const Post = ({ post }) => {
           <div className="flex flex-wrap items-center pt-3 pb-1">
             <div className="flex items-center space-x-2">
               <div className="flex -space-x-1">
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?1"
-                />
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?2"
-                />
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?3"
-                />
+                {like?.slice(0, 3).map((li) => (
+                  <>
+                    {li?.photo ? (
+                      <img
+                        key={li._id}
+                        alt=""
+                        className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
+                        src={li.photo}
+                      />
+                    ) : (
+                      <Icon
+                        title="user?.displayName"
+                        icon="iconoir:profile-circle"
+                        width="40"
+                        className="w-5 h-5 border rounded-full"
+                      />
+                    )}
+                  </>
+                ))}
               </div>
               <span className="text-sm">
-                Liked by
-                <span className="font-semibold">Mamba UI</span>and
-                <span className="font-semibold">86 others</span>
+                Liked by,
+                {like?.slice(0, 1).map((lik) => (
+                  <>
+                    <span key={lik._id} className="font-semibold">
+                      {lik.userName} and {like?.length} others
+                    </span>
+                  </>
+                ))}
               </span>
             </div>
           </div>

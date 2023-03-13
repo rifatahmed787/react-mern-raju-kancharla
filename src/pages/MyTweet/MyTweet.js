@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Icon } from "@iconify/react";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import SmallSpinner from "../../components/spinner/SmallSpinner";
 
 const MyTweet = () => {
   const { user } = useContext(AuthContext);
@@ -54,6 +55,7 @@ const MyTweet = () => {
     isLoading,
     refetch,
     isError,
+    loading,
   } = useQuery({
     queryKey: ["mytweet"],
     queryFn: async () => {
@@ -86,8 +88,7 @@ const MyTweet = () => {
             name: user?.displayName,
             photoURL: user?.photoURL,
             caption: data.caption,
-            quantity: 0,
-            like: false,
+            like: [],
             email: user.email,
           };
           fetch(
@@ -121,9 +122,9 @@ const MyTweet = () => {
   }
 
   return (
-    <div className="lg:w-3/4 sm:w-full mx-auto bg-[#FFFFFF]">
-      <div className="flex  items-center my-3  py-2 border-none rounded-lg shadow-md">
-        <div className="mx-3">
+    <div className="lg:w-3/4 sm:w-full mx-auto">
+      <div className="flex  items-center my-3  py-2 border-none rounded-lg shadow-md bg-[#FFFFFF]">
+        <div className="mx-3 ">
           {user?.photoURL ? (
             <div className="flex items-center">
               {" "}
@@ -232,18 +233,24 @@ const MyTweet = () => {
               )}
             </div>
             <div className="text-center">
-              <input
-                className="btn max-w-xs border-none bg-orange-500 hover:bg-orange-500 w-full mt-5"
-                value="Post"
-                type="submit"
-              />
+              {loading ? (
+                <button className="btn  bg-orange-500 hover:bg-orange-500 w-full mt-5 border-none">
+                  <SmallSpinner />
+                </button>
+              ) : (
+                <input
+                  className="btn max-w-xs border-none bg-orange-500 hover:bg-orange-500 w-full mt-5"
+                  value="Post"
+                  type="submit"
+                />
+              )}
             </div>
           </form>
         </div>
       </div>
-      <div className="">
-        {tweets.length < 0 ? (
-          <p className="text-lg font-serif font-semibold">
+      <div className="bg-[#FFFFFF] rounded-lg">
+        {tweets.length === 0 ? (
+          <p className="text-lg font-serif font-semibold text-center mt-12 rounded-lg py-5">
             You have no tweet to show.
           </p>
         ) : (

@@ -10,6 +10,7 @@ const Home = () => {
     isLoading,
     isError,
     data: posts = [],
+    refetch,
   } = useQuery({
     queryKey: ["post"],
     queryFn: async () => {
@@ -30,10 +31,10 @@ const Home = () => {
   }
 
   return (
-    <div className="w-3/4 mx-auto bg-[#FFFFFF]">
-      <div className="my-3">
+    <div className="w-3/4 mx-auto ">
+      <div className="my-3 bg-[#FFFFFF] rounded-lg">
         {posts.map((post) => (
-          <Post post={post} key={post._id}></Post>
+          <Post post={post} refetch={refetch} key={post._id}></Post>
         ))}
       </div>
     </div>

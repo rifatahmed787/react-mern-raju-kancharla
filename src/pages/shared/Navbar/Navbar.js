@@ -31,6 +31,7 @@ const Navbar = () => {
     SignOut()
       .then(() => {
         toast.success("Successfully loged out");
+        navigate("/");
       })
       .catch((error) => console.error(error));
   };
@@ -107,7 +108,7 @@ const Navbar = () => {
                     title="user?.displayName"
                     icon="iconoir:profile-circle"
                     width="25"
-                    className="lg:mt-2"
+                    className="lg:mt-2 text-black"
                   />
                 </label>
                 <ul
@@ -182,7 +183,7 @@ const Navbar = () => {
                 <Icon
                   icon="mingcute:sun-line"
                   width="32"
-                  className="text-white"
+                  className="text-gray-500"
                 />
               ) : (
                 <Icon
