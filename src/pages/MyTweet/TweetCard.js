@@ -112,26 +112,35 @@ const TweetCard = ({ tweet, refetch }) => {
           <div className="flex flex-wrap items-center pt-3 pb-1">
             <div className="flex items-center space-x-2">
               <div className="flex -space-x-1">
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?1"
-                />
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?2"
-                />
-                <img
-                  alt=""
-                  className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
-                  src="https://source.unsplash.com/40x40/?portrait?3"
-                />
+                {like?.slice(0, 3).map((li) => (
+                  <>
+                    {li?.photo ? (
+                      <img
+                        key={li._id}
+                        alt=""
+                        className="w-5 h-5 border rounded-full dark:bg-gray-500 dark:border-gray-800"
+                        src={li.photo}
+                      />
+                    ) : (
+                      <Icon
+                        title="user?.displayName"
+                        icon="iconoir:profile-circle"
+                        width="40"
+                        className="w-5 h-5 border rounded-full"
+                      />
+                    )}
+                  </>
+                ))}
               </div>
               <span className="text-sm">
-                Liked by
-                <span className="font-semibold">Mamba UI</span>and
-                <span className="font-semibold">86 others</span>
+                Liked by,
+                {like?.slice(0, 1).map((lik) => (
+                  <>
+                    <span key={lik._id} className="font-semibold">
+                      {lik.userName} and {like?.length} others
+                    </span>
+                  </>
+                ))}
               </span>
             </div>
           </div>

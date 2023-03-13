@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const Post = ({ post, refetch }) => {
   const { user } = useContext(AuthContext);
   const [likePost, setLikePost] = useState(false);
+  // console.log(likePost);
 
   const { name, photoURL, like, caption, img, _id } = post;
 
@@ -25,25 +26,24 @@ const Post = ({ post, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         refetch();
       });
   };
 
   useEffect(() => {
-    console.log("start");
+    // console.log("start");
 
-    const likedpost = like.find((votes) => votes.userEmail === user?.email);
-    console.log("likedpost", likedpost);
+    const likedpost = like.find((votes) => votes.email === user?.email);
+    // console.log("likedpost", likedpost);
 
     if (likedpost) {
       setLikePost(true);
-      console.log("liked");
+      // console.log("liked");
       return;
     } else {
       setLikePost(false);
 
-      console.log("false");
+      // console.log("false");
       return;
     }
   }, [user?.email, like]);
@@ -108,13 +108,7 @@ const Post = ({ post, refetch }) => {
                       title="Like post"
                       className="flex items-center justify-center"
                     >
-                      <Icon
-                        icon="mdi:like-outline"
-                        width="25"
-                        className={`${
-                          likePost ? "text-blue-700" : "text-black"
-                        }`}
-                      />
+                      <Icon icon="mdi:like-outline" width="25" />
                     </button>
                   </Link>
                 </div>
